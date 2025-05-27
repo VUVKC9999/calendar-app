@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+
+const API = axios.create({
+  baseURL: process.env.REACT_APP_API_BASE_URL
+});
+
+
 function Login({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -8,7 +14,7 @@ function Login({ onLogin }) {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const res = await API.post('/auth/login', { email, password });
       localStorage.setItem('token', res.data.token);
       onLogin(); // callback to App
     } catch (err) {
