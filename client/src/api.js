@@ -1,7 +1,11 @@
-import axios from './utils/axios';
+import axios from 'axios';
 
-export const getTasks = () => axios.get('/tasks');
-export const addTask = (task) => axios.post('/tasks', task);
-export const deleteTask = (id) => axios.delete(`/tasks/${id}`);
-export const toggleComplete = (id) => axios.patch(`/tasks/complete/${id}`);
+const API = axios.create({
+  baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'
+});
+
+export const getTasks = () => API.get('/tasks');
+export const addTask = (task) => API.post('/tasks', task);
+export const deleteTask = (id) => API.delete(`/tasks/${id}`);
+export const toggleComplete = (id) => API.patch(`/tasks/complete/${id}`);
 
